@@ -14,10 +14,19 @@ function inputForm(event) {
 }
 function submitForm(event) {
   event.preventDefault();
-  const formData = new FormData(form);
-  formData.forEach((value, name) => {
-    console.log(`${name}, ${value}`);
-  });
+  const userEmail = form.elements.email.value;
+  const userMessage = form.elements.message.value;
+if (userEmail === "" || userMessage === "") {
+    alert("Заповніть всі поля форми!!!")
+  return
+} else {
+    console.log(form.elements.email.name, ":", userEmail) 
+    console.log(form.elements.message.name, ":", userMessage )
+}
+//   const formData = new FormData(form);
+//   formData.forEach((value, name) => {
+//     console.log(`${name}: ${value}`) 
+//   });
   form.reset();
   localStorage.removeItem('feedback-form-state');
 }
@@ -25,9 +34,9 @@ function submitForm(event) {
 function initForm() {
   let localStorageMessage = localStorage.getItem('feedback-form-state');
   if (localStorageMessage) {
-    localStorageMessage = JSON.parse(localStorageMessage);  
-  Object.entries(localStorageMessage).forEach(([name, value]) => {
-    form.elements[name].value = value;
-  });
-}
+    localStorageMessage = JSON.parse(localStorageMessage);
+    Object.entries(localStorageMessage).forEach(([name, value]) => {
+      form.elements[name].value = value;
+    });
+  }
 }
